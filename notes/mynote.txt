@@ -1,0 +1,34 @@
+//ROUTE = HTTP METHOD + URL
+
+res.send is just for text or HTML response
+
+ app.get("/", (req, res) => {
+   res.status(200).send("Hy sahil Welcome to the express");
+ res.status(200).json({ message: "Hello Chennai Super kings", status: 200 });
+ });
+
+ Object.assign() is basically allows us to create new object by merging to existing object together 
+
+ //middleware : 
+
+ 1) morgan() morgan is not a middlewear , it is a funtion which will calls and return middler ware
+
+ const logger = function(req,res,next) --> it is a middleware function because it will not call but it will passes
+ like this app.use(logger)
+
+ 2) If one object or function have to exports than we can use exports.module but if we want to exports multiple objects or function than we have to use exports.functionname or objectname
+
+
+ //ENV
+ C:\Users\Sahil Vaidya\Node  with Express>SET NODE_ENV=development
+
+C:\Users\Sahil Vaidya\Node  with Express>nodemon server.js
+//assign variable in env 
+C:\Users\Sahil Vaidya\Node  with Express>SET x=49
+
+C:\Users\Sahil Vaidya\Node  with Express>SET y=58
+
+
+
+//mongoDb coverts json data in to BSon data
+Object Id is not valid in JSON , but its valid in Bso

@@ -1,0 +1,90 @@
+
+//mongoDb coverts json data in to BSon data
+Object Id is not valid in JSON , but its valid in BSon
+
+
+1) db.collectionname.insertOne({name: "sahil,age:1,year:2021});
+
+2)  db.collectionname.insertMany([{},{},{}])
+----------------------------------------------------------------------------------------------------------------------
+2) Find()
+
+1)db.collectionname.find(); --> will return all data of collection
+
+2)db.collectionname.findOne(); --> wil return first data of collection
+
+3)db.customers.findOne({name:"Sam curran"}) --> will returnn specific data
+
+4)db.customers.find({gender:"male"},{_id: false,age:0}) --> will return data without id and age we can specify unwanted fileld or pair by false or 0
+this will apply also in findOne()
+
+5)db.customers.find({gender:"male"},{_id: false,age:0}).pretty() -->just apply for find()
+
+----------------------------------------------------------------------------------------------------------------------------
+
+3)Update()
+
+1)db.customers.updateOne({name:"Sagun"},{$set:{age:50,hobby:"Foot ball"}})--> if there is no filed match in update query then it will be adeed as new field 
+
+2)db.customers.updateMany({name:"sahil vaidya"},{$set:{country:"Australia"}})--> can add fields in multiple 
+
+-----------------------------------------------------------------------------------------------------------------------
+
+4) delete
+
+1)db.customers.deleteOne({name:"sahil vaidya"})--> if we have two names with same name then it will delete first one
+
+2)db.customers.deleteOne({name:"sahil vaidya"})--> will delete all documents will given name
+
+3)db.customers.deleteOne({}) --> will delete first document
+
+4)db.customers.deleteMany({})--> will delete all documents
+
+-----------------------------------------------------------------------------------------------------------------------------
+4) Remove
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+
+1)db.customers.remove({name:"Sahil Vaidya"},true)--> it will delete just one documet of same name
+
+2)db.customers.remove({name:"Sahil Vaidya"},false)--> it will delete all document with same name
+
+3)db.customers.remove({name:"Sahil Vaidya"})--> it will delete all document with same name
+
+4)db.customers.remove({})--> will remove all documents
+
+-----------------------------------------------------------------------------------------------------------------------------------
+cursor
+--> find() does not return a list , It returns a pointer to a list of documents which is also called as a cursor
+--> find() does not return all the documents at once , it returns batches. that batches calles as a cursor
+-->1) db.customers.find().toArray() --> toArray() returns all of the documents .in background/internally find() gives one batch but 
+    toArray() requested for another document that's why whole document will return at once.
+
+2)db.customers.find().forEach((cust)=>{print("Customer name" + cust.name)})
+
+--> forEach() function loops each itreation in all documents and requesting for another batch of document
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+--> In JSON data we can embedded or nested 100 object data {} in one document
+--> whole size of  one document should be 16mb ot greter than it
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+querey a document based on a nested document
+
+note : When we are using dot notation  for update than we must be wrapped in double quatation ""
+db.customres.find({"subscription.type" :"Premium"}) --> will return Premium related data
+
+db.customres.find({"subscription.type" :"Basic"}) --> will return Basic related data
+
+db.customres.find({"subscription.type" :"Standard"})--> will return Standard related data
+
+db.customres.updateOne({name:'Jane Smith'},{$set:{"subscription.type":"Yearly"}})
+
+db.customres.updateOne({name:'John Doe'},{$set:{"subscription.renewalDate.year":2025}}) 
+
+db.customres.findOne({name: "John Doe"}).subscription.renewalDate.year
+
+db.customres.findOne({name: "John Doe"}).subscription.type
+

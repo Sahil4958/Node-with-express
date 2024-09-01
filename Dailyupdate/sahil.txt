@@ -1,0 +1,24 @@
+//Params middlewear
+
+exports.checkId = (req, res, next, value) => {
+  console.log("Your enterd id is " + value);
+
+  let movie = movies.find((el) => el.id === +value);
+  if (!movie) {
+    return res.status(404).json({
+      status: "Failed",
+      message: `Movie with ID ${value} is not found`,
+    });
+  }
+  next();
+};
+
+//body validation for post request
+exports.validateBody = (req, res, next) => {
+  if (!req.body.name || !req.body.releaseYear || !req.body.duration) {
+    return res
+      .status(400)
+      .json({ status: "failed", message: "Entered data is not valid" });
+  }
+  next();
+};
